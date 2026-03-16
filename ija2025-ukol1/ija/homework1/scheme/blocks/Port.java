@@ -23,7 +23,13 @@ public abstract class Port {
     /** Blok, kterému port patří */
     private Block owner;
 
-    protected Port(String name, Block owner) {
+    /**
+     * Konstruktor pro inicializaci portu.
+     * @param name Název portu.
+     * @param owner Blok, kterému port patří.
+     * @throws IllegalArgumentException pokud není zadán název portu nebo vlastník portu.
+     */
+    private Port(String name, Block owner) {
         if (name == null) throw new IllegalArgumentException("Port name cannot be null.");
         if (owner == null) throw new IllegalArgumentException("Port owner cannot be null.");
         this.name = name;
@@ -33,6 +39,7 @@ public abstract class Port {
     /**
      * Vstupní port bloku.
      * Přijímá hodnotu z výstupního portu jiného bloku, po každém přijetí vyvolá přepočet svého bloku ({@link Block#calculate()}).
+     * Příjímaní je vyvoláno metodou {@link OutputPort#setValue(double)} připojeného výstupního portu.
      */
     public static class InputPort extends Port {
 
@@ -106,11 +113,14 @@ public abstract class Port {
             connections.add(inputPort);
         }
 
+        /**
+        * Nastaví novou hodnotu tohoto výstupního portu a zpropaguje ji do všech připojených vstupních portů.
+        * @param value Nová hodnota portu která se má zpropagovat.
+        */
         public void setValue(double value) {
             this.value = value;
-            // Propagace nové hodnoty do všech připojených vstupních portů
             for (InputPort input : connections) {
-                input.propagateSource(); // aktualizace hodnoty v připojeném vstupním portu
+                input.propagateSource();
             }
         }
     }

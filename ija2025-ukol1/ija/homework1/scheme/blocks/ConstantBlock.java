@@ -37,9 +37,11 @@ public class ConstantBlock extends Block {
         getOutputPort().setValue(value);
     }
 
+    /**
+     * Vrací aktuální hodnotu konstanty.
+     */
     @Override
     protected double compute(Map<String, Double> inputs) {
-        return value;   
+        return value;
     }
-
 }

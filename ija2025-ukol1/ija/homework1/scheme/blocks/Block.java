@@ -45,8 +45,6 @@ public abstract class Block {
      * @return Název bloku.
      */
     public String getName() { return name; }
-
-    //public Map<String, Port.InputPort> getInputPorts() { return inputPorts; }
     
     /**
      * Vrací vstupní port odpovídající názvu. Pokud v bloku není port daného jména, generuje výjimku.

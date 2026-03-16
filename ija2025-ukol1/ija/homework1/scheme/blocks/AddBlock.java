@@ -21,12 +21,12 @@ public class AddBlock extends Block {
 
 
     /**
-     * Vypočítá součet hodnot zadaných vstupů "a" a "b" a vrátí výsledek.
-     * @param inputs mapa (název vstupu -> hodnota)
-     * @return vypočtená hodnota
+     * Vypočítá součet hodnot zadaných vstupů.
+     * @param inputs mapa (název vstupu : hodnota)
+     * @return vypočítaná hodnota
     */
     @Override
     protected double compute(Map<String, Double> inputs) {
-        return inputs.get("a") + inputs.get("b");
+        return inputs.values().stream().reduce(0.0, (a, b) -> a + b);
     }
 }

@@ -19,8 +19,12 @@ public class MultiplyBlock extends Block {
      */
     public MultiplyBlock(String name) { super(name, "a", "b"); }
 
+    /**
+     * Vypočítá součin hodnot zadaných vstupů.
+     * @return vypočítaná hodnota
+     */
     @Override
     protected double compute(Map<String, Double> inputs) {
-        return inputs.get("a") * inputs.get("b");
+        return inputs.values().stream().reduce(1.0, (a, b) -> a * b);
     }
 }

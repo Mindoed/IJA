@@ -1,5 +1,9 @@
 JUNIT="../junit-platform-console-standalone-1.11.4.jar"
 
+# Smazani predchozich kompilaci:
+echo "Cleaning previous builds..."
+rm -rf cls
+
 # Kompilace s vyuzitim JUnit:
 echo ""
 echo "Compiling tests..."

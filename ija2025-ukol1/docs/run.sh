@@ -1,4 +1,4 @@
-JUNIT="../junit-platform-console-standalone-1.11.4.jar"
+JUNIT="../../junit-platform-console-standalone-1.11.4.jar"
 
 # Smazani predchozich kompilaci:
 echo "Cleaning previous builds..."

@@ -62,10 +62,19 @@ public abstract class Port {
 
         /**
          * Zkontroluje, zda je tento vstupní port připojen k nějakému výstupnímu portu.
-         * @return
+         * @return true pokud je připojen, false jinak.
          */
         public Boolean isConnected() {
             return source != null;
+        }
+
+        /**
+         * Aktualizuje hodnotu tohoto vstupního portu na základě hodnoty z připojeného výstupního portu.
+         * A následně vynutí přepočet bloku.
+         */
+        protected void propagateSource() {
+            this.value = source.getValue();
+            super.owner.calculate(); // vynucení přepočtu bloku při změně vstupu
         }
     }
 
@@ -101,7 +110,7 @@ public abstract class Port {
             this.value = value;
             // Propagace nové hodnoty do všech připojených vstupních portů
             for (InputPort input : connections) {
-                input.value = value; // aktualizace hodnoty v připojeném vstupním portu
+                input.propagateSource(); // aktualizace hodnoty v připojeném vstupním portu
             }
         }
     }

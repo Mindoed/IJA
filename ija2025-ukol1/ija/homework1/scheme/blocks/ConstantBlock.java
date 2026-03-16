@@ -37,4 +37,9 @@ public class ConstantBlock extends Block {
         getOutputPort().setValue(value);
     }
 
+    @Override
+    protected double compute(Map<String, Double> inputs) {
+        return value;   
+    }
+
 }

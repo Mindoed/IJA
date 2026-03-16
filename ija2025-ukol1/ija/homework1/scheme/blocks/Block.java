@@ -100,4 +100,5 @@ public abstract class Block {
      * @param inputs mapa (název vstupu -> hodnota)
      * @return vypočtená hodnota
      */
+    protected abstract double compute(Map<String, Double> inputs);
 }

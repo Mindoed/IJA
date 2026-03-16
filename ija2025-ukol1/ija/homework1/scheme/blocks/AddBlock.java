@@ -19,4 +19,14 @@ public class AddBlock extends Block {
      */
     public AddBlock(String name) { super(name, "a", "b"); }
 
+
+    /**
+     * Vypočítá součet hodnot zadaných vstupů "a" a "b" a vrátí výsledek.
+     * @param inputs mapa (název vstupu -> hodnota)
+     * @return vypočtená hodnota
+    */
+    @Override
+    protected double compute(Map<String, Double> inputs) {
+        return inputs.get("a") + inputs.get("b");
+    }
 }

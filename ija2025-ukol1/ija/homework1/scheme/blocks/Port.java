@@ -23,6 +23,13 @@ public abstract class Port {
     /** Blok, kterému port patří */
     private Block owner;
 
+    protected Port(String name, Block owner) {
+        if (name == null) throw new IllegalArgumentException("Port name cannot be null.");
+        if (owner == null) throw new IllegalArgumentException("Port owner cannot be null.");
+        this.name = name;
+        this.owner = owner;
+    }
+
     /**
      * Vstupní port bloku.
      * Přijímá hodnotu z výstupního portu jiného bloku, po každém přijetí vyvolá přepočet svého bloku ({@link Block#calculate()}).
@@ -31,6 +38,8 @@ public abstract class Port {
 
         private Double value = 0.0; // poslední přijatá hodnota
         private OutputPort source;
+
+        public InputPort(String name, Block owner) { super(name, owner); }
 
         /**
          * Připojí vstupní port na výstupní blok zadaného bloku.
@@ -43,6 +52,21 @@ public abstract class Port {
             source.addConnection(this);
         }
 
+        /**
+         * Vrátí aktuální hodnotu výstupního portu. 
+         * @return Hodnota portu.
+         */
+        public double getValue() {
+            return value;
+        }
+
+        /**
+         * Zkontroluje, zda je tento vstupní port připojen k nějakému výstupnímu portu.
+         * @return
+         */
+        public Boolean isConnected() {
+            return source != null;
+        }
     }
 
     /**
@@ -55,12 +79,30 @@ public abstract class Port {
         private double value;
         private List<InputPort> connections = new ArrayList<>();
 
+        public OutputPort(String name, Block owner) { super(name, owner); }
+
         /**
          * Vrátí aktuální hodnotu výstupního portu. 
          * @return Hodnota portu.
          */
         public double getValue() {
             return value;
+        }
+
+        /**
+         * Přidá port který je připojen a čte tento výstupní port.
+         * @param inputPort
+         */
+        public void addConnection(InputPort inputPort) {
+            connections.add(inputPort);
+        }
+
+        public void setValue(double value) {
+            this.value = value;
+            // Propagace nové hodnoty do všech připojených vstupních portů
+            for (InputPort input : connections) {
+                input.value = value; // aktualizace hodnoty v připojeném vstupním portu
+            }
         }
     }
 }
